@@ -1,0 +1,6 @@
+.student-item{
+    display: none;
+}
+.active-student{
+    display: block;
+}
