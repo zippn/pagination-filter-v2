@@ -41,14 +41,12 @@ function appendPageLinks(studentList) {
 }
 function setPageLinks() {
 
-    var anchors = $('.pagination a');
-    console.log(anchors);
+    var anchors = $('.pagination a');//find anchors
 //set click events for each link
-    anchors.each(function () {
+    anchors.each(function () {//assign click event to anchors
         $(this).click(function(){
             showPage($(this).text());
         });
-        console.log($(this).text());
     });
 
 
@@ -63,25 +61,22 @@ function appendSearch() {
     
 }
 function searchList() {
-    
-    const input = $('.student-search input').val();
-    const student = $('.student-item');
-    var match = false ;
-    let newList = `<ul class="student-list">`;
 
-    if(input=='') {
+    const input = $('.student-search input').val();//store input
+    const student = $('.student-item');//all students
+    var match = false ;//bool for match
+    let newList = `<ul class="student-list">`;//create ul
 
-        newList +=`<h3>no student’s found</h3>`;
-        match = false;
-        
-    }else {
+    if(input) {//check for input
+
+
         student.each(function () {
-
+            //check match, store if match
             if ($(this).find('h3').is(':contains("' + input + '")'||$(this).find('.email').is(':contains("' + input + '")'))) {
                 newList += '<li class="student-item cf"> '+$(this)[0].innerHTML+'</li>'
-                console.log($(this)[0].innerHTML);
+             //   console.log($(this)[0].innerHTML);
                 if(!match){
-                    match = true;
+                    match = true;//set for match
                 }
 
             }
@@ -89,17 +84,23 @@ function searchList() {
         });
     }
 
-    newList += '</div>';
+    if(!match){
+        newList +=`<h3>no student’s found</h3>`;//no match
 
+    }
+
+    newList += '</ul>';
+
+    //remove old, add new list
     $('.student-list').remove();
-    $(newList).insertAfter('.page-header');
     $('.pagination').remove();
-    if (match) {
+    $(newList).insertAfter('.page-header');
+
+    if (match) {//add links for match
         appendPageLinks($('.student-list'));
         showPage(1);
-        console.log(input);
+//        console.log(input);
     }
-   // if($)
 }
 //attach search form
 appendSearch();
